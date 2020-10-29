@@ -1,4 +1,4 @@
 # js_fun_stuff
-fun stuff created with html, css and js
-idea of these things taken from course JavaScript30, author: wesbos.
+Fun stuff created with HTML, CSS and JavaScript.
+Ideas of these things was taken from course JavaScript30, author: wesbos, site: https://wesbos.com
 I may add few things or change some parts of code.
