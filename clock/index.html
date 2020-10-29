@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .clock {
+            background: url(time.jpg) center center/cover no-repeat;
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+        }
+        .clock-face {
+            width: 300px;
+            height: 300px;
+            border: 30px solid rgba(0,0,0, .8);
+            border-radius: 50%;
+            background-color: aquamarine;
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .hand {
+            width: 50%;
+            height: 6px;
+            background: transparent;
+            position: absolute;
+            top: 50%;
+            transform-origin: 100%;
+            transform: rotate(90deg);
+            display: flex;
+            justify-content: flex-end;
+        }
+        .digit {
+            position: absolute;
+            font-size: 20px;
+            font-weight: bold;
+            color:  rgb(79, 196, 118);
+        }
+        .twelve {
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .one {
+            top: 15deg;
+            right: 55px;
+            transform: translateX(-15deg);
+        }
+        .two {
+            top: calc(30% - 30px);
+            right: 0px;
+        }
+        .three {
+            top: 50%;
+            right: -20px;
+            transform: translateY(-50%);
+        }
+        .four {
+            top: calc(60% + 40px);
+            right: 5px;
+        }
+        .five {
+            top: calc(75% + 60px);
+            right: 65px;
+        }
+        .six {
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .seven {
+            top: calc(75% + 60px);
+            left: 65px;
+        }
+        .eight {
+            top: calc(60% + 40px);
+            left: 5px;
+        }
+        .nine {
+            top: 50%;
+            left: -20px;
+            transform: translateY(-50%);
+        }
+        .ten {
+            top: calc(30% - 30px);
+            left: -5px;
+        }
+        .eleven {
+            top: 15deg;
+            left: 54px;
+            transform: translateX(-15deg);
+        }
+        .circle {
+            width: 20px;
+            height: 20px;
+            background-color: rgb(79, 196, 118);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+        }
+        .arrow {
+            height: 100%;
+            background-color: #000;
+            position: relative;
+        }
+        .arrow-seconds {
+            width: 90%;
+        }
+        .arrow-hours {
+            width: 70%;
+        }
+        .arrow-mins {
+            width: 80%;
+        }
+        .pointer {
+            position: absolute;
+            top: -2px;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 5px 20px 5px 0;
+            border-color: transparent #000000 transparent transparent;
+            line-height: 0px;
+        }
+        .pointer-seconds {
+            left: -12px;
+        }
+        .pointer-mins {
+            left: -20px;
+        }
+        .pointer-hours {
+            left: -20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="clock">
+        <div class="clock-face">
+          <div class="hand hour-hand">
+            <div class="arrow arrow-hours">
+                <div class="pointer pointer-hours"></div>
+            </div>
+          </div>
+          <div class="hand min-hand">
+            <div class="arrow arrow-mins">
+                <div class="pointer pointer-mins"></div>
+            </div>
+          </div>
+          <div class="hand second-hand">
+              <div class="arrow arrow-seconds">
+                <div class="pointer pointer-seconds"></div>
+              </div>
+          </div>
+          
+          <div class="digit one">1</div>
+          <div class="digit two">2</div>
+          <div class="digit three">3</div>
+          <div class="digit four">4</div>
+          <div class="digit five">5</div>
+          <div class="digit six">6</div>
+          <div class="digit seven">7</div>
+          <div class="digit eight">8</div>
+          <div class="digit nine">9</div>
+          <div class="digit ten">10</div>
+          <div class="digit eleven">11</div>
+          <div class="digit twelve">12</div>
+          <div class="circle"></div>
+        </div>
+      </div>
+      <script>
+        const secondsHand = document.querySelector('.second-hand'), 
+            minsHand = document.querySelector('.min-hand'),
+            hoursHand = document.querySelector('.hour-hand');
+        function setDate() {
+            const now = new Date();
+
+            const seconds = now.getSeconds();
+            const secondsDegrees = ((seconds / 60) * 360) + 90;
+            secondsHand.style.transform = `rotate(${secondsDegrees}deg)`;
+
+            const mins = now.getMinutes();
+            const minsDegrees = ((mins / 60) * 360) + 90;
+            minsHand.style.transform = `rotate(${minsDegrees}deg)`;
+
+            const hour = now.getHours();
+            const hoursDegrees = ((hour / 12) * 360) + ((mins/60)*30) + 90;
+            hoursHand.style.transform = `rotate(${hoursDegrees}deg)`;
+        }
+        setInterval(setDate, 1000);
+        setDate();
+      </script>
+</body>
+</html>
