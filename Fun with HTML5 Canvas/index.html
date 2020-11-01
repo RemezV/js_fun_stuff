@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .board {
+            position: fixed;
+            width: 100%;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0,0,0,.7);
+        }
+        .board-item {
+            margin: 0 10px;
+            color: white;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        span {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="board">
+        <div class="board-item">
+                <span>Color</span>
+                <input type="color" name="color" id="color">
+        </div>
+        <div class="board-item">
+                <span>Line width</span>
+                <input type="range" name="line" id="line" min="0" max="100" value="0">
+        </div>
+    </div>
+    <canvas id="draw"></canvas>
+    <script>
+        let color = document.querySelector('#color');
+        let lineWidht = document.querySelector('#line')
+        color.addEventListener('input', (e) => {
+            ctx.strokeStyle = color.value;
+        });
+        lineWidht.addEventListener('change', () => {
+            ctx.lineWidth = lineWidht.value;
+        });
+        const canvas = document.querySelector('#draw');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        ctx.lineJoin = 'round';
+        ctx.lineCap = 'round';
+
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+        let hue = 0;
+
+
+        function draw(e) {
+            if (!isDrawing) return; // stop drawing when not mousedown
+            ctx.beginPath();
+            // start from
+            ctx.moveTo(lastX, lastY);
+            // go to
+            ctx.lineTo(e.offsetX, e.offsetY);
+            ctx.stroke();
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+            hue++;
+        }
+        canvas.addEventListener('mousedown', (e) => {
+            isDrawing = true;
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+        });
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', () => isDrawing = false);
+        canvas.addEventListener('mouseout', () => isDrawing = false);
+        // 11.
+    </script>
+</body>
+</html>
